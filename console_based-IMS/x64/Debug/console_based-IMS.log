@@ -1,0 +1,27 @@
+﻿  Source.cpp
+MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+MSVCRTD.lib(gs_support.obj) : error LNK2019: unresolved external symbol __imp_QueryPerformanceCounter referenced in function __get_entropy
+MSVCRTD.lib(gs_support.obj) : error LNK2019: unresolved external symbol __imp_GetCurrentProcessId referenced in function __get_entropy
+MSVCRTD.lib(gs_support.obj) : error LNK2019: unresolved external symbol __imp_GetCurrentThreadId referenced in function __get_entropy
+MSVCRTD.lib(gs_support.obj) : error LNK2019: unresolved external symbol __imp_GetSystemTimeAsFileTime referenced in function __get_entropy
+MSVCRTD.lib(tncleanup.obj) : error LNK2019: unresolved external symbol __imp_InitializeSListHead referenced in function "void __cdecl __scrt_initialize_type_info(void)" (?__scrt_initialize_type_info@@YAXXZ)
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_RtlCaptureContext referenced in function __scrt_fastfail
+MSVCRTD.lib(gs_report.obj) : error LNK2001: unresolved external symbol __imp_RtlCaptureContext
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_RtlLookupFunctionEntry referenced in function __scrt_fastfail
+MSVCRTD.lib(gs_report.obj) : error LNK2001: unresolved external symbol __imp_RtlLookupFunctionEntry
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_RtlVirtualUnwind referenced in function __scrt_fastfail
+MSVCRTD.lib(gs_report.obj) : error LNK2001: unresolved external symbol __imp_RtlVirtualUnwind
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_IsDebuggerPresent referenced in function __scrt_fastfail
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_UnhandledExceptionFilter referenced in function __scrt_fastfail
+MSVCRTD.lib(gs_report.obj) : error LNK2001: unresolved external symbol __imp_UnhandledExceptionFilter
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_SetUnhandledExceptionFilter referenced in function __scrt_fastfail
+MSVCRTD.lib(gs_report.obj) : error LNK2001: unresolved external symbol __imp_SetUnhandledExceptionFilter
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_GetStartupInfoW referenced in function __scrt_get_show_window_mode
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_IsProcessorFeaturePresent referenced in function __scrt_fastfail
+MSVCRTD.lib(gs_report.obj) : error LNK2001: unresolved external symbol __imp_IsProcessorFeaturePresent
+MSVCRTD.lib(utility_desktop.obj) : error LNK2019: unresolved external symbol __imp_GetModuleHandleW referenced in function __scrt_is_managed_app
+MSVCRTD.lib(gs_report.obj) : error LNK2019: unresolved external symbol __imp_GetCurrentProcess referenced in function __raise_securityfailure
+MSVCRTD.lib(gs_report.obj) : error LNK2019: unresolved external symbol __imp_TerminateProcess referenced in function __raise_securityfailure
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib\x64\kernel32.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib\x64\user32.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\dell\Desktop\console_based-IMS\x64\Debug\console_based-IMS.exe : fatal error LNK1120: 17 unresolved externals
