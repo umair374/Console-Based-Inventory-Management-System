@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClInclude Include="header.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="implementation.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
