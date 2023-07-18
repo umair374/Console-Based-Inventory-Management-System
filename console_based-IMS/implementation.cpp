@@ -759,3 +759,600 @@ int add_New_Customer::get_C_Id()const
 {
 	return C_id;
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+long Add_New_Product::sports = 1;
+long Add_New_Product::Garments = 1;
+long Add_New_Product::Eatables = 1;
+long Add_New_Product::Medicines = 1;
+long Add_New_Product::Fashion = 1;
+
+
+Add_New_Product::Add_New_Product() :Product_category("/0"), P_id(0), Product_Quantity(0), Product_name("/0"), Discription_Product("/0")
+{}
+
+void Add_New_Product::viewProduct()
+{
+	cout << "-------------------------------------------------------------------------------------------------------" << endl;
+	cout << "    Id-num\t\tCategory\t\tProduct\t\t\tQuantity" << endl;
+	ifstream read("Product.txt");
+
+	//counting the number of shopkeepers stored in file
+	string t; int count = 0, count2 = 0;
+	while (!read.eof())
+	{
+		getline(read, t);
+		count2++;
+	}
+
+	read.close();
+	if (count2 == 0)
+	{
+		cout << "File Is Empty.\n";
+		system("pause");
+		return;
+	}
+
+	//storing data in array
+	Add_New_Product* temp = new Add_New_Product[count2];
+	count = 0;
+
+	read.open("Product.txt");
+	while (!read.eof())
+	{
+		read >> temp[count].P_id >> temp[count].Product_category >> temp[count].Product_name
+			>> temp[count].Product_Quantity;
+		count++;
+	}
+	read.close();
+	int c = 1;
+	for (int i = 0; i < count - 1; i++, c++)
+	{
+		cout << c << "   " << temp[i].P_id << "\t\t" << temp[i].Product_category << "\t\t\t"
+			<< temp[i].Product_name << "\t\t\t" << temp[i].Product_Quantity << endl;
+	}
+	cout << "-------------------------------------------------------------------------------------------------------" << endl;
+}
+
+
+void Add_New_Product::set_P_Id(int n)
+{
+	ifstream read("Product.txt");
+
+	//counting the number of shopkeepers stored in file
+	string t; int count = 0, count2 = 0;
+	while (!read.eof())
+	{
+		getline(read, t);
+		count2++;
+	}
+
+	read.close();
+	if (count2 == 0)
+	{
+		cout << "File Is Empty.\n";
+		system("pause");
+		return;
+	}
+
+	//storing data in array
+	Add_New_Product* temp = new Add_New_Product[count2];
+	count = 0;
+
+	read.open("Product.txt");
+	while (!read.eof())
+	{
+		read >> temp[count].P_id >> temp[count].Product_category >> temp[count].Product_name
+			>> temp[count].Product_Quantity;
+		count++;
+	}
+	read.close();
+	int size = count2 - 1;
+	int size1 = 0, size2 = 0, size3 = 0, size4 = 0, size5 = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (temp[i].P_id >= 10000 && temp[i].P_id < 20000)
+			size1++;
+		if (temp[i].P_id >= 20000 && temp[i].P_id < 30000)
+			size2++;
+		if (temp[i].P_id >= 30000 && temp[i].P_id < 40000)
+			size3++;
+		if (temp[i].P_id >= 40000 && temp[i].P_id < 50000)
+			size4++;
+		if (temp[i].P_id >= 50000)
+			size5++;
+	}
+
+	int* arr1 = new int[size1];
+	int* arr2 = new int[size2];
+	int* arr3 = new int[size3];
+	int* arr4 = new int[size4];
+	int* arr5 = new int[size5];
+	int x1 = 0, x2 = 0, x3 = 0, x4 = 0, x5 = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (temp[i].P_id >= 10000 && temp[i].P_id < 20000)
+		{
+			arr1[x1] = temp[i].P_id;
+			x1++;
+		}
+	}
+	for (int i = 0; i < size; i++)
+	{
+		if (temp[i].P_id >= 20000 && temp[i].P_id < 30000)
+		{
+			arr2[x2] = temp[i].P_id;
+			x2++;
+		}
+	}
+	for (int i = 0; i < size; i++)
+	{
+		if (temp[i].P_id >= 30000 && temp[i].P_id < 40000)
+		{
+			arr3[x3] = temp[i].P_id;
+			x3++;
+		}
+	}
+	for (int i = 0; i < size; i++)
+	{
+		if (temp[i].P_id >= 40000 && temp[i].P_id < 50000)
+		{
+			arr4[x4] = temp[i].P_id;
+			x4++;
+		}
+	}
+	for (int i = 0; i < size; i++)
+	{
+		if (temp[i].P_id >= 50000)
+		{
+			arr5[x5] = temp[i].P_id;
+			x5++;
+		}
+	}
+
+	int max1 = arr1[0];
+	for (int i = 1; i < size1; i++)
+	{
+		if (max1 < arr1[i])
+		{
+			max1 = arr1[i];
+		}
+	}
+
+	int max2 = arr2[0];
+	for (int i = 1; i < size2; i++)
+	{
+		if (max2 < arr2[i])
+		{
+			max2 = arr2[i];
+		}
+	}
+
+	int max3 = arr3[0];
+	for (int i = 1; i < size3; i++)
+	{
+		if (max3 < arr3[i])
+		{
+			max3 = arr3[i];
+		}
+	}
+	int max4 = arr4[0];
+	for (int i = 1; i < size4; i++)
+	{
+		if (max4 < arr4[i])
+		{
+			max4 = arr4[i];
+		}
+	}
+	int max5 = arr5[0];
+	for (int i = 1; i < size5; i++)
+	{
+		if (max5 < arr5[i])
+		{
+			max5 = arr5[i];
+		}
+	}
+
+	if (n == 1)
+	{
+		if (max1 <= 0)
+		{
+			if (sports == 1) { sports += 10000; }
+			P_id = sports;
+			sports++;
+			Product_category = "SPORTS";
+		}
+		else
+		{
+			for (int i = sports; i <= max1; i++) { sports++; }
+			P_id = sports;
+			sports++;
+			Product_category = "SPORTS";
+		}
+	}
+	if (n == 2)
+	{
+		if (max2 <= 0)
+		{
+			if (Garments == 1) { Garments += 20000; }
+			P_id = Garments;
+			Garments++;
+			Product_category = "GARMENTS";
+		}
+		else
+		{
+			for (int i = Garments; i <= max2; i++) { Garments++; }
+			P_id = Garments;
+			Garments++;
+			Product_category = "GARMENTS";
+		}
+
+	}
+	if (n == 3)
+	{
+		if (max3 <= 0)
+		{
+			if (Eatables == 1) { Eatables += 30000; }
+			P_id = Eatables;
+			Eatables++;
+			Product_category = "EATABLES";
+		}
+		else
+		{
+			for (int i = Eatables; i <= max3; i++) { Eatables++; }
+			P_id = Eatables;
+			Eatables++;
+			Product_category = "EATABLES";
+		}
+	}
+	if (n == 4)
+	{
+		if (max4 <= 0)
+		{
+			if (Medicines == 1) { Medicines += 40000; }
+			P_id = Medicines;
+			Medicines++;
+			Product_category = "Medicines";
+		}
+		else
+		{
+			for (int i = Medicines; i <= max4; i++) { Medicines++; }
+			P_id = Medicines;
+			Medicines++;
+			Product_category = "Medicines";
+		}
+	}
+	if (n == 5)
+	{
+		if (max5 <= 0)
+		{
+			if (Fashion == 1) { Fashion += 50000; }
+			P_id = Fashion;
+			Fashion++;
+			Product_category = "FASHION";
+		}
+		else
+		{
+			for (int i = Fashion; i <= max5; i++) { Fashion++; }
+			P_id = Fashion;
+			Fashion++;
+			Product_category = "FASHION";
+		}
+	}
+	free(arr1);
+	free(arr2);
+	free(arr3);
+	free(arr4);
+	free(arr5);
+}
+long Add_New_Product::get_P_Id()const
+{
+	return P_id;
+}
+void Add_New_Product::InputDataOfProduct()
+{
+	int choice = 0, check = 0;
+	bool flag = true;
+here1:
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "------------------------------------------ Product ---------------------------------------------" << endl;
+
+	cout << "SELECT PRODUCT CATEGORIES : " << endl;
+	cout << "1. Sports    " << endl;
+	cout << "2. Garments  " << endl;
+	cout << "3. Eatables  " << endl;
+	cout << "4. Medicines " << endl;
+	cout << "5. Fashion   " << endl;
+	cout << "6. Menue " << endl;
+	while (flag == true)
+	{
+		cout << "Choice : ";
+		cin >> choice;
+		check = choice;
+
+		if (!cin || check < 0)
+		{
+			cin.clear();
+			cin.ignore();
+			system("cls");
+			goto here1;
+		}
+		if (check == 1 || check == 2 || check == 3 || check == 4 || check == 5)
+		{
+			set_P_Id(choice);
+
+			cout << "Product ID         : " << get_P_Id();
+			cout << "\nProduct Category   : " << Product_category;
+			cout << "\nEnter Name         : ";
+			cin >> Product_name;
+		L1:
+			cout << "Enter its quantity : ";
+			cin >> Product_Quantity;
+			if (!cin || Product_Quantity < 0)
+			{
+				cin.clear();
+				cin.ignore();
+				system("CLS");
+				cout << "Wrong Input  .Plz Input Again !" << endl;
+				goto L1;
+			}
+			cout << "Enter Discription  : ";
+			cin.ignore();
+			getline(cin, Discription_Product);
+
+			ofstream write("Product.txt", ios::app);
+
+			write << get_P_Id() << " " << Product_category << " "
+				<< Product_name << " " << Product_Quantity << endl;
+
+			write.close();
+			cout << "!! Data Updated in Product file !!" << endl;
+
+			flag = false;
+		}
+		if (check == 6)
+		{
+			flag = false;
+		}
+		if (check != 6 && check != 1 && check != 2 && check != 3 && check != 4 && check != 5 && check != 0)
+		{
+			cout << "Wrong Input plz select from (1-5) !" << endl;
+		}
+		/*if (check == 0)                          //To Avoid infinite loop
+		{
+			flag = false;
+			cout << "!!!        PROGRAM TERMINATED     !!!" << endl;
+		}*/
+	}
+
+}
+
+void Add_New_Product::editingproductdata(int x)
+{
+	int choice = 0, check = 0;
+	bool flag = true;
+here1:
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "------------------------------------------ Product ---------------------------------------------" << endl;
+	while (flag == true)
+	{
+		cout << "Product ID         : " << get_P_Id();
+		cout << "\nProduct Category   : " << Product_category;
+		cout << "\nEnter Name         : ";
+		cin >> Product_name;
+	L1:
+		cout << "Enter its quantity : ";
+		cin >> Product_Quantity;
+		if (!cin || Product_Quantity < 0)
+		{
+			cin.clear();
+			cin.ignore();
+			system("CLS");
+			cout << "Wrong Input  .Plz Input Again !" << endl;
+			goto L1;
+		}
+		cout << "Enter Discription  : ";
+		cin.ignore();
+		getline(cin, Discription_Product);
+
+		ofstream write("Product.txt", ios::app);
+
+		write << get_P_Id() << " " << Product_category << " "
+			<< Product_name << " " << Product_Quantity << endl;
+
+		write.close();
+		cout << "!! Data Updated in Product file !!" << endl;
+
+		flag = false;
+
+	}
+
+}
+
+
+
+void Add_New_Product::EditDataProduct()
+{
+	int x;
+
+	ifstream read("Product.txt");
+
+	//counting the number of shopkeepers stored in file
+	string t; int count = 0, count2 = 0;
+	while (!read.eof())
+	{
+		getline(read, t);
+		count2++;
+	}
+
+	read.close();
+	if (count2 == 0)
+	{
+		cout << "File Is Empty.\n";
+		system("pause");
+		return;
+	}
+
+	//storing data in array
+	Add_New_Product* temp = new Add_New_Product[count2];
+	count = 0;
+
+	read.open("Product.txt");
+	while (!read.eof())
+	{
+		read >> temp[count].P_id >> temp[count].Product_category >> temp[count].Product_name
+			>> temp[count].Product_Quantity;
+		count++;
+	}
+	read.close();
+here3:
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+
+	for (int i = 0; i < count2 - 1; i++)
+	{
+		cout << temp[i].get_P_Id() << " " << temp[i].Product_category << " "
+			<< temp[i].Product_name << " " << temp[i].Product_Quantity << endl;
+	}
+	try
+	{
+		cout << "\nEnter Id of Product which you want to edit    : ";
+		cin >> x;
+		throw x;
+	}
+	catch (int)
+	{
+		if (!cin)
+		{
+			cin.clear();
+			cin.ignore();
+			system("cls");
+			goto here3;
+		}
+	}
+	int checking = 0;
+	for (int i = 0; i < count; i++)
+	{
+		if (temp[i].P_id == x)
+		{
+			temp[i].editingproductdata(x);
+			break;
+		}
+		if (temp[i].P_id != x)
+		{
+			checking++;
+		}
+	}
+	if (checking == count)
+	{
+		cout << "!!      ID not Found         !!" << endl;
+	}
+
+	ofstream write("Product.txt");
+
+	for (int i = 0; i < count2 - 1; i++)
+	{
+		write << temp[i].get_P_Id() << " " << temp[i].Product_category << " "
+			<< temp[i].Product_name << " " << temp[i].Product_Quantity << endl;
+	}
+	write.close();
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+}
+void Add_New_Product::DeleteDataProduct()
+{
+	int x;
+
+	ifstream read("Product.txt");
+
+	//counting the number of shopkeepers stored in file
+	string t; int count = 0, count2 = 0;
+	while (!read.eof())
+	{
+		getline(read, t);
+		count2++;
+	}
+
+	read.close();
+	if (count2 == 0)
+	{
+		cout << "File Is Empty.\n";
+		system("pause");
+		return;
+	}
+
+	//storing data in array
+	Add_New_Product* temp = new Add_New_Product[count2];
+	count = 0;
+
+	read.open("Product.txt");
+	while (!read.eof())
+	{
+		read >> temp[count].P_id >> temp[count].Product_category >> temp[count].Product_name
+			>> temp[count].Product_Quantity;
+		count++;
+	}
+	read.close();
+here3:
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	for (int i = 0; i < count2 - 1; i++)
+	{
+		cout << temp[i].get_P_Id() << " " << temp[i].Product_category << " "
+			<< temp[i].Product_name << " " << temp[i].Product_Quantity << endl;
+	}
+	try
+	{
+		cout << "\nEnter Id of Product which you want to delete    : ";
+		cin >> x;
+		throw x;
+	}
+	catch (int)
+	{
+		if (!cin)
+		{
+			cin.clear();
+			cin.ignore();
+			system("cls");
+			goto here3;
+		}
+	}
+	int checking = 0, findingIndex = 0;
+	for (int i = 0; i < count; i++)
+	{
+		if (temp[i].P_id == x)
+		{
+			findingIndex = temp[i].P_id;
+			break;
+		}
+		if (temp[i].P_id != x)
+		{
+			checking++;
+		}
+	}
+	if (checking == count)
+	{
+		cout << "!!      ID not Found         !!" << endl;
+	}
+
+	ofstream write("Product.txt");
+
+	for (int i = 0; i < count2 - 1; i++)
+	{
+		if (temp[i].get_P_Id() != findingIndex)
+		{
+			write << temp[i].get_P_Id() << " " << temp[i].Product_category << " "
+				<< temp[i].Product_name << " " << temp[i].Product_Quantity << endl;
+		}
+	}
+	write.close();
+	if (checking != count)
+	{
+		cout << "!!   RECORD SUCCESSFULLY DELETED  !!" << endl;
+	}
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+}
+
+
+
+
+
