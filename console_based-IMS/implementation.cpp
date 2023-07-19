@@ -1352,6 +1352,322 @@ here3:
 	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Administrator_Module::Administrator_Module() :userName_Admin("admin"), pass_Admin("admin")
+{
+	cin.ignore();
+	signIn_interface();
+	check();
+	display_options();
+
+}
+
+void Administrator_Module::display_options()
+{
+	system("CLS");
+here2:
+	cout << "--------------------------------------------------------------------------------------" << endl << endl << endl << endl << endl;
+	cout << "                   1 - Add New ShopKeeper                       " << endl;
+	cout << "                   2 - Add New Customer                         " << endl;
+	cout << "                   3 - Add New Product                         " << endl;
+	cout << "                   4 - Edit ShopKeeper detail                     " << endl;
+	cout << "                   5 - Edit Customer detail                     " << endl;
+	cout << "                   6 - Edit Product detail                     " << endl;
+	cout << "                   7 - Delete Shopkeeper                     " << endl;
+	cout << "                   8 - Delete Customer                     " << endl;
+	cout << "                   9 - Delete Product                     " << endl;
+	cout << "                   10- Module Selecter                     " << endl;
+	int choice = 0, check = 0; bool flag = true;
+	while (flag == true)
+	{
+
+		cout << "           Choice : ";
+		cin >> choice;
+		check = choice;
+		if (!cin || check < 0)
+		{
+			cin.clear();
+			cin.ignore();
+			system("cls");
+			goto here2;
+		}
+		if (check == 1 || check == 2 || check == 3 || check == 4 || check == 5 || check == 6 || check == 7 || check == 8 || check == 9 || check == 10)
+		{
+			flag = false;
+			switch (choice)
+			{
+			case 1:
+				system("CLS");
+				InputDataShop();
+				_getch();
+				display_options();
+				break;
+			case 2:
+				system("CLS");
+				InputDataCustomer();
+				_getch();
+				display_options();
+				break;
+			case 3:
+				system("CLS");
+				InputDataOfProduct();
+				_getch();
+				display_options();
+				break;
+			case 4:
+				system("CLS");
+				EditDataShop();
+				_getch();
+				display_options();
+				break;
+			case 5:
+				system("CLS");
+				EditDataCustomer();
+				_getch();
+				display_options();
+				break;
+			case 6:
+				system("CLS");
+				EditDataProduct();
+				_getch();
+				display_options();
+				break;
+			case 7:
+				system("CLS");
+				DeleteDataShop();
+				_getch();
+				display_options();
+				break;
+			case 8:
+				system("CLS");
+				DeleteDataCustomer();
+				_getch();
+				display_options();
+				break;
+			case 9:
+				system("CLS");
+				DeleteDataProduct();
+				_getch();
+				display_options();
+				break;
+			case 10:
+				AfterWellcome();
+				break;
+			}
+		}
+		if (check != 0 && check != 1 && check != 2 && check != 3 && check != 4 && check != 5 && check != 6 && check != 7 && check != 8 && check != 9 && check != 10)
+		{
+			cout << "\n!!!        Wrong Input....        !!!\n" << endl;
+		}
+		/*if (check == 0)                          //To Avoid infinite loop
+		{
+			flag = false;
+			cout << "!!!        PROGRAM TERMINATED     !!!" << endl;
+
+		}*/
+
+	}
+	cout << endl << endl << endl << endl << "--------------------------------------------------------------------------------------" << endl;
+}
+
+void Administrator_Module::check()
+{
+	bool flag = true;
+	while (flag == true)
+	{
+		if (userName == userName_Admin && password == pass_Admin)
+		{
+			system("CLS");
+			cout << endl << endl << endl << endl << endl << endl;
+			cout << "--------------------------------------------------------------------------" << endl;
+			cout << "                         ~~~~~~WELL-COME~~~~~~~                           " << endl;
+			cout << "--------------------------------------------------------------------------" << endl;
+			_getch();
+			system("CLS");
+			flag = false;
+		}
+		if (userName != userName_Admin || password != pass_Admin)
+		{
+			system("CLS");
+			cout << endl << endl << endl << endl << endl << endl;
+			cout << "--------------------------------------------------------------------------" << endl;
+			cout << "                         ~~~~~~WRRONG PASSWORD OR NAME~~~~~~~                           " << endl;
+			cout << "--------------------------------------------------------------------------" << endl;
+			//_getch();
+			cin.ignore();
+			system("CLS");
+
+			signIn_interface();
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Shopkeeper_Module::Shopkeeper_Module() :userName_shop("shopkeeper"), pass_Shop("shopkeeper")
+{
+	cin.ignore();
+	signIn_interface();
+	check();
+	display_options_shop();
+}
+
+void Shopkeeper_Module::display_options_shop()
+{
+	system("CLS");
+here2:
+	cout << "--------------------------------------------------------------------------------------" << endl << endl << endl << endl << endl;
+	cout << "                   1 - Register to system                     " << endl;
+	cout << "                   2 - Add a product                          " << endl;
+	cout << "                   3 - Edit a product                         " << endl;
+	cout << "                   4 - View products                          " << endl;
+	cout << "                   5 - Module Selecter                        " << endl;
+	int choice = 0, check = 0; bool flag = true;
+	while (flag == true)
+	{
+
+		cout << "           Choice : ";
+		cin >> choice;
+		check = choice;
+		if (!cin || check < 0)
+		{
+			cin.clear();
+			cin.ignore();
+			system("cls");
+			goto here2;
+		}
+		if (check == 1 || check == 2 || check == 3 || check == 4 || check == 5)
+		{
+			flag = false;
+			switch (choice)
+			{
+			case 1:
+				system("CLS");
+				InputDataShop();
+				_getch();
+				display_options_shop();
+				break;
+			case 2:
+				system("CLS");
+				InputDataOfProduct();
+				_getch();
+				display_options_shop();
+				break;
+			case 3:
+				system("CLS");
+				EditDataProduct();
+				_getch();
+				display_options_shop();
+				break;
+			case 4:
+				system("CLS");
+				viewProduct();
+				_getch();
+				display_options_shop();
+				break;
+			case 5:
+				AfterWellcome();
+				break;
+			}
+		}
+		if (check != 0 && check != 1 && check != 2 && check != 3 && check != 4 && check != 5)
+		{
+			cout << "\n!!!        Wrong Input....        !!!\n" << endl;
+		}
+
+
+
+		/*if (check == 0)                          //To Avoid infinite loop
+		{
+			flag = false;
+			cout << "!!!        PROGRAM TERMINATED     !!!" << endl;
+
+		}*/
+
+	}
+}
+
+void Shopkeeper_Module::check()
+{
+	ifstream read("Shopkeeper.txt");
+
+	//counting the number of shopkeepers stored in file
+	string t; int count = 0, count2 = 0;
+	while (!read.eof())
+	{
+		getline(read, t);
+		count2++;
+	}
+
+	read.close();
+	if (count2 == 0)
+	{
+		cout << "File Is Empty.\n";
+		system("pause");
+		return;
+	}
+
+	//storing data in array
+	add_New_Shop_keeper* temp = new add_New_Shop_keeper[count2];
+	count = 0;
+	string* usernamearray = new string[count2];
+	string* passwordarray = new string[count2];
+
+	read.open("Shopkeeper.txt");
+	while (!read.eof())
+	{
+		read >> temp[count].S_id >> temp[count].Fname_shop >> temp[count].Lname_shop >> temp[count].userName_shop >> temp[count].Email_shop
+			>> temp[count].Password_shop >> temp[count].RegistrationDate_shop >> temp[count].Address_shop >> temp[count].contactNum_shop
+			>> temp[count].bloodGroup_shop >> temp[count].gender_shop;
+		usernamearray[count] = temp[count].userName_shop;
+		passwordarray[count] = temp[count].Password_shop;
+		count++;
+	}
+	read.close();
+
+	bool flag = true, flag2 = true;
+	while (flag == true)
+	{
+		if (flag2 == true)
+		{
+			for (int i = 0; i < count2 - 1; i++)
+			{
+				flag2 = false;
+				if ((userName == userName_shop || userName == usernamearray[i]) && (password == pass_Shop || password == passwordarray[i]))
+				{
+					system("CLS");
+					cout << endl << endl << endl << endl << endl << endl;
+					cout << "--------------------------------------------------------------------------" << endl;
+					cout << "                         ~~~~~~WELL-COME~~~~~~~                           " << endl;
+					cout << "--------------------------------------------------------------------------" << endl;
+					_getch();
+					system("CLS");
+					i = count2 + 1;
+					flag = false;
+					flag2 = true;
+				}
+			}
+		}
+		if (flag2 == false)
+		{
+			system("CLS");
+			cout << endl << endl << endl << endl << endl << endl;
+			cout << "--------------------------------------------------------------------------" << endl;
+			cout << "                         ~~~~~~WRRONG PASSWORD OR NAME~~~~~~~                           " << endl;
+			cout << "--------------------------------------------------------------------------" << endl;
+			//_getch();
+			cin.ignore();
+			system("CLS");
+			signIn_interface();
+			flag2 = true;
+		}
+
+	}
+
+}
 
 
 
