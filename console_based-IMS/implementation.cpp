@@ -1669,6 +1669,556 @@ void Shopkeeper_Module::check()
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Customer_Module::Customer_Module() :userName_customer("customer"), pass_customer("customer")
+{
+	Display_signin_up_option();
+	//Display_options_cus();
+}
+void Customer_Module::Display_signin_up_option()
+{
+	system("CLS");
+here2:
+	cout << "--------------------------------------------------------------------------------------" << endl << endl << endl << endl << endl;
+	cout << "                   1 - Register to system                     " << endl;
+	cout << "                   2 - Sign-In                                " << endl;
+	cout << "                   3 - Module Selecter                        " << endl;
+	int choice = 0, check2 = 0; bool flag = true;
+	while (flag == true)
+	{
+
+		cout << "           Choice : ";
+		cin >> choice;
+		check2 = choice;
+		if (!cin || check2 < 0)
+		{
+			cin.clear();
+			cin.ignore();
+			system("cls");
+			goto here2;
+		}
+		if (check2 == 1 || check2 == 2 || check2 == 3)
+		{
+			flag = false;
+			switch (choice)
+			{
+			case 1:
+				system("CLS");
+				InputDataCustomer();
+				_getch();
+				Display_options_cus();
+				break;
+			case 2:
+				system("CLS");
+				cin.ignore();
+				signIn_interface();
+				check();
+				Display_options_cus();
+				break;
+			case 3:
+				AfterWellcome();
+				break;
+			}
+		}
+		if (check2 != 1 && check2 != 2 && check2 != 3)
+		{
+			cout << "\n!!!        Wrong Input....        !!!\n" << endl;
+		}
+		/*if (check == 0)                          //To Avoid infinite loop
+		{
+			flag = false;
+			cout << "!!!        PROGRAM TERMINATED     !!!" << endl;
+
+		}*/
+
+	}
+}
+
+void Customer_Module::purchase_Product()
+{
+	cout << "-------------------------------------------------------------------------------------------------------" << endl;
+	cout << "    Id-num\t\tCategory\t\tProduct\t\t\tQuantity" << endl;
+	ifstream read("Product.txt");
+
+	//counting the number of shopkeepers stored in file
+	string t; int count = 0, count2 = 0;
+	while (!read.eof())
+	{
+		getline(read, t);
+		count2++;
+	}
+
+	read.close();
+	if (count2 == 0)
+	{
+		cout << "File Is Empty.\n";
+		system("pause");
+		return;
+	}
+
+	//storing data in array
+	Add_New_Product* temp = new Add_New_Product[count2];
+	count = 0;
+
+	read.open("Product.txt");
+	while (!read.eof())
+	{
+		read >> temp[count].P_id >> temp[count].Product_category >> temp[count].Product_name
+			>> temp[count].Product_Quantity;
+		count++;
+	}
+	read.close();
+	int c = 1;
+	for (int i = 0; i < count - 1; i++, c++)
+	{
+		cout << c << "   " << temp[i].P_id << "\t\t" << temp[i].Product_category << "\t\t\t"
+			<< temp[i].Product_name << "\t\t\t" << temp[i].Product_Quantity << endl;
+	}
+
+	c = c - 1;
+	cout << "-------------------------------------------------------------------------------------------------------" << endl;
+	int p;
+	int quantity = 0;
+	char s;
+	bool flag = true;
+here3:
+	while (flag == true)
+	{
+		try
+		{
+			cout << "Select number of product you want to purchase  : ";
+			cin >> p;
+			throw p;
+		}
+		catch (int)
+		{
+			if (!cin)
+			{
+				cin.clear();
+				cin.ignore();
+				system("cls");
+				goto here3;
+			}
+		}
+	here4:
+		if (p <= c)
+		{
+			try
+			{
+				cout << "Enter Quantity : ";
+				cin >> quantity;
+				throw quantity;
+			}
+			catch (int)
+			{
+				if (!cin)
+				{
+					cin.clear();
+					cin.ignore();
+					system("cls");
+					goto here4;
+				}
+			}
+
+			ofstream write("addToCart.txt", ios::app);
+			write << temp[p - 1].get_P_Id() << " " << temp[p - 1].Product_category << " "
+				<< temp[p - 1].Product_name << " " << quantity << endl;
+			write.close();
+			cout << "\nSelected Product added to cart\n " << endl;
+		}
+		if (p > c || p < 0)
+		{
+			cout << "\n!!    No Product Exit In this item no.    !!\n" << endl;
+		}
+
+		if (temp[p - 1].Product_Quantity - quantity <= 0)
+		{
+			temp[p - 1].Product_Quantity += 3;
+		}
+		if (temp[p - 1].Product_Quantity - quantity > 0)
+		{
+			temp[p - 1].Product_Quantity -= quantity;
+		}
+
+		cout << "Want to order more  (y/N) : ";
+		cin >> s;
+		cout << endl;
+		if (s == 'Y' || s == 'y')
+		{
+			continue;
+		}
+		if (s == 'N' || s == 'n')
+		{
+			flag = false;
+		}
+		if (s != 'Y' && s != 'y' && s != 'N' && s != 'n')
+		{
+			cout << "!!   Wrong Input   !!" << endl;
+			cout << "!!   Default YES   !! " << endl;
+		}
+	}
+	ofstream write("Product.txt");
+
+	for (int i = 0; i < count - 1; i++)
+	{
+
+		write << temp[i].get_P_Id() << " " << temp[i].Product_category << " "
+			<< temp[i].Product_name << " " << temp[i].Product_Quantity << endl;
+	}
+	write.close();
+
+
+	int cou2 = 0;
+	read.open("Product.txt");
+	while (!read.eof())
+	{
+		read >> temp[cou2].P_id >> temp[cou2].Product_category >> temp[cou2].Product_name
+			>> temp[cou2].Product_Quantity;
+		cou2++;
+	}
+	read.close();
+
+	cout << "\n!!     Inventory Updated      !!\n" << endl;
+
+	c = 1;
+	for (int i = 0; i < count - 1; i++, c++)
+	{
+		cout << c << "   " << temp[i].P_id << "\t\t" << temp[i].Product_category << "\t\t\t"
+			<< temp[i].Product_name << "\t\t\t" << temp[i].Product_Quantity << endl;
+	}
+
+
+	cout << "\nThanks For purchasing \n" << endl;
+
+}
+//void Customer_Module::Add_to_cart()
+//{
+//	cout << "!!        Nothing Here        !!" << endl;
+//}
+void Customer_Module::Check_out()
+{
+
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LIST OF PRODUCTS IN CART~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+
+	cout << "-------------------------------------------------------------------------------------------------------" << endl;
+	cout << "    Id-num\t\tCategory\t\tProduct\t\t\tQuantity\t\tAmount" << endl;
+	ifstream read("addToCart.txt");
+
+	//counting the number of shopkeepers stored in file
+	string t; int count = 0, count2 = 0;
+	while (!read.eof())
+	{
+		getline(read, t);
+		count2++;
+	}
+
+	read.close();
+	if (count2 == 0)
+	{
+		cout << "File Is Empty.\n";
+		system("pause");
+		return;
+	}
+
+	//storing data in array
+	Add_New_Product* temp = new Add_New_Product[count2];
+	count = 0;
+
+	read.open("addToCart.txt");
+	while (!read.eof())
+	{
+		read >> temp[count].P_id >> temp[count].Product_category >> temp[count].Product_name
+			>> temp[count].Product_Quantity;
+		count++;
+	}
+	read.close();
+	int c = 1,
+		countTotalQuantity = 0;
+
+	int amountGiver[10] = { 200,300,250,150,520,210,100,600,550,330 };
+	int calulateamount[10];
+	for (int i = 0; i < count - 1; i++, c++)
+	{
+		cout << c << "   " << temp[i].P_id << "\t\t" << temp[i].Product_category << "\t\t\t"
+			<< temp[i].Product_name << "\t\t\t" << temp[i].Product_Quantity << "\t\t\t" << amountGiver[i] << endl;
+		calulateamount[i] = amountGiver[i] * temp[i].Product_Quantity;
+		//countTotalQuantity += temp[i].Product_Quantity;
+	}
+
+	int amount = 0;
+	for (int i = 0; i < count - 1; i++, c++)
+	{
+		amount += calulateamount[i];
+	}
+	//amount *= countTotalQuantity;
+	int payment;
+	bool flag = true;
+	cout << "\nAMOUNT OF PRODUCTS SELECTED         : " << amount << endl;
+	if (amount == 0)
+	{
+		cout << "AFTER ADDING (200)Delevery CHARGES  : " << amount << endl;
+		cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CART IS EMPTY~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	}
+	else if (amount > 0)
+	{
+		amount += 200;
+		cout << "AFTER ADDING (200)Delevery CHARGES  : " << amount << endl;
+
+		while (flag == true)
+		{
+			cout << "\nEnter payment    : " << endl;
+			cin >> payment;
+			if (payment >= amount)
+			{
+				flag = false;
+				cout << "Return Amount      : " << payment - amount << endl;
+				ofstream write("addToCart.txt");
+				write;
+				write.close();
+
+			}
+			if (payment < 0 || payment < amount)
+			{
+				cout << "\n!!    InValid Input    !!" << endl;
+			}
+		}
+
+		cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~THANKS FOR SHOPPING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	}
+	cout << "-------------------------------------------------------------------------------------------------------" << endl;
+}
+
+void Customer_Module::Display_options_cus()
+{
+	system("CLS");
+here2:
+	cout << "--------------------------------------------------------------------------------------" << endl << endl << endl << endl << endl;
+	cout << "                   1 - Purchase a product                     " << endl;
+	cout << "                   2 - Check out                              " << endl;
+	cout << "                   3 - Module Selecter                        " << endl;
+	int choice = 0, check = 0; bool flag = true;
+	while (flag == true)
+	{
+
+		cout << "           Choice : ";
+		cin >> choice;
+		check = choice;
+		if (!cin || check < 0)
+		{
+			cin.clear();
+			cin.ignore();
+			system("cls");
+			goto here2;
+		}
+		if (check == 1 || check == 2 || check == 3)
+		{
+			flag = false;
+			switch (choice)
+			{
+			case 1:
+				system("CLS");
+				purchase_Product();
+				_getch();
+				Display_options_cus();
+				break;
+			case 2:
+				system("CLS");
+				Check_out();
+				_getch();
+				Display_options_cus();
+				break;
+			case 3:
+				AfterWellcome();
+				break;
+			}
+		}
+		if (check != 1 && check != 2 && check != 3)
+		{
+			cout << "\n!!!        Wrong Input....        !!!\n" << endl;
+		}
+		/*if (check == 0)                          //To Avoid infinite loop
+		{
+			flag = false;
+			cout << "!!!        PROGRAM TERMINATED     !!!" << endl;
+
+		}*/
+
+	}
+
+}
+
+void Customer_Module::check()
+{
+	ifstream read("Customer.txt");
+
+	//counting the number of shopkeepers stored in file
+	string t; int count = 0, count2 = 0;
+	while (!read.eof())
+	{
+		getline(read, t);
+		count2++;
+	}
+
+	read.close();
+	if (count2 == 0)
+	{
+		cout << "File Is Empty.\n";
+		system("pause");
+		return;
+	}
+
+	//storing data in array
+	add_New_Customer* temp = new add_New_Customer[count2];
+	count = 0;
+
+	string* usernamearray = new string[count2];
+	string* passwordarray = new string[count2];
+
+	read.open("Customer.txt");
+	while (!read.eof())
+	{
+		read >> temp[count].C_id >> temp[count].Fname_customer >> temp[count].Lname_customer >> temp[count].userName_customer >> temp[count].Email_customer
+			>> temp[count].Password_customer >> temp[count].RegistrationDate_customer >> temp[count].Address_customer >> temp[count].contactNum_customer
+			>> temp[count].bloodGroup_customer >> temp[count].gender_customer;
+		usernamearray[count] = temp[count].userName_customer;
+		passwordarray[count] = temp[count].Password_customer;
+		count++;
+	}
+	read.close();
+
+	bool flag = true, flag2 = true;
+	while (flag == true)
+	{
+		if (flag2 == true)
+		{
+			for (int i = 0; i < count2 - 1; i++)
+			{
+				flag2 = false;
+				if ((userName == userName_customer || userName == usernamearray[i]) && (password == pass_customer || password == passwordarray[i]))
+				{
+					system("CLS");
+					cout << endl << endl << endl << endl << endl << endl;
+					cout << "--------------------------------------------------------------------------" << endl;
+					cout << "                         ~~~~~~WELL-COME~~~~~~~                           " << endl;
+					cout << "--------------------------------------------------------------------------" << endl;
+					_getch();
+					system("CLS");
+					i = count2 + 1;
+					flag = false;
+					flag2 = true;
+				}
+			}
+		}
+		if (flag2 == false)
+		{
+			system("CLS");
+			cout << endl << endl << endl << endl << endl << endl;
+			cout << "--------------------------------------------------------------------------" << endl;
+			cout << "                         ~~~~~~WRRONG PASSWORD OR NAME~~~~~~~                           " << endl;
+			cout << "--------------------------------------------------------------------------" << endl;
+			//_getch();
+			cin.ignore();
+			system("CLS");
+			signIn_interface();
+			flag2 = true;
+		}
+
+	}
+}
+
+void Wellcome()
+{
+	cout << "\n\n\n\n\n---------------------------------------------------------------------------------------------------------------------" << endl << endl << endl << endl << endl << endl;
+	cout << "                     _______                               ________      _________      ________________      _______" << endl;
+	cout << "||            ||   ||          ||           ||           ||            ||         ||   ||      ||      ||   ||       " << endl;
+	cout << "||   ______   ||   ||          ||           ||           ||            ||         ||   ||      ||      ||   ||       " << endl;
+	cout << "||  ||    ||  ||   ||_______   ||           ||           ||            ||         ||   ||      ||      ||   ||_______" << endl;
+	cout << "||  ||    ||  ||   ||          ||           ||           ||            ||         ||   ||      ||      ||   ||       " << endl;
+	cout << "||  ||    ||  ||   ||          ||           ||           ||            ||         ||   ||      ||      ||   ||       " << endl;
+	cout << "||__||    ||__||   ||_______   ||________   ||________   ||________    ||_________||   ||      ||      ||   ||_______" << endl;
+	cout << endl << endl << endl << endl << endl;
+	cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
+	_getch();
+	system("CLS");
+}
+int Module__Selecter()
+{
+	system("CLS");
+	int choice = 0, check = 0; bool flag = true;
+here3:
+	cout << "----------------------------------------------------------------------------------------------------------" << endl << endl << endl << endl;
+	cout << "------------------------------SELECT THE MODULE FROM THE GIVEN OPTIONS------------------------------------" << endl;
+	cout << "           0. TO TARMINATE & Restart        " << endl;
+	cout << "           1. ADMINISTRATOR        " << endl;
+	cout << "           2. SHOP-KEEPER          " << endl;
+	cout << "           3. CUSTOMER             " << endl;
+	cout << "           4. Quit                 " << endl;
+
+
+	while (flag == true)
+	{
+
+		cout << "           Choice : ";
+		cin >> choice;
+		if (!cin || check < 0)
+		{
+			cin.clear();
+			cin.ignore();
+			system("cls");
+			goto here3;
+		}
+		check = choice;
+		if (check == 1 || check == 2 || check == 3 || check == 0 || check == 4)
+		{
+			flag = false;
+			return choice;
+		}
+		if (check != 1 && check != 2 && check != 3 && check != 0 && check != 4)
+		{
+			cout << "\n!!!        Wrong Input....        !!!\n" << endl;
+
+		}
+		/*if (check == 0)                          //To Avoid infinite loop
+		{
+			flag = false;
+			cout << "!!!        PROGRAM TERMINATED     !!!" << endl;
+			return 0;
+		}*/
+
+	}
+}
+
+void AfterWellcome()
+{
+	int option;
+	option = Module__Selecter();
+
+	if (option == 0)
+	{
+		AfterWellcome();
+	}
+
+	if (option == 1)                              // Administrator module
+	{
+		Administrator_Module A1;
+	}
+
+	if (option == 2)                              // Shop-keeper module
+	{
+		Shopkeeper_Module S1;
+	}
+
+	if (option == 3)                              // Costomer module
+	{
+		Customer_Module C1;
+	}
+
+	if (option == 4)
+	{
+		system("CLS");
+		cout << "~~~~~~~~~~~~~~~~~~~~~~~~THANKS FOR COMING~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	}
+}
 
 
 
